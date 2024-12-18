@@ -11,7 +11,7 @@ function gameBoard() {
     turnCount++;
 
     // check that input is valid
-    if (i < 1 || i > 9) return;
+    if (i < 1 || i > 9 || board[i - 1] !== "") return;
 
     // add appropriate turn-based input
     if (turnCount % 2 !== 0) {
