@@ -87,9 +87,9 @@ function gameController() {
     }
 
     // add appropriate turn-based input
-    if (turnCount % 2 !== 0) {
+    if (turnCount % 2 === 0) {
       board.fillSquare(square, "O");
-    } else if (turnCount % 2 === 0) {
+    } else {
       board.fillSquare(square, "X");
     }
 
