@@ -1,26 +1,20 @@
 function gameBoard() {
-  let board = ["", "", "", "", "", "", "", "", ""];
+  const board = ["", "", "", "", "", "", "", "", ""];
   //visual representation
   //[0, 1, 2]
   //[3, 4, 5]
   //[6, 7, 8]
 
-  let turnCount = 0;
+  function fillSquare(i, value) {
+    board[i] = value;
+  }
 
-  function playSquare(i) {
-    turnCount++;
+  function logBoard() {
+    console.log(board);
+  }
 
-    // check that input is valid
-    if (i < 1 || i > 9 || board[i - 1] !== "") return;
-
-    // add appropriate turn-based input
-    if (turnCount % 2 !== 0) {
-      board[i - 1] = "X";
-    } else if (turnCount % 2 === 0) {
-      board[i - 1] = "O";
-    }
-
-    checkForWinner();
+  function isMoveValid(square) {
+    return square >= 0 && square <= 8 && board[square] === "";
   }
 
   function checkForWinner() {
@@ -35,25 +29,88 @@ function gameBoard() {
       [2, 4, 6], // diagonal top-right to bottom-left
     ];
 
+    //check for winner
     for (const combination of winningCombinations) {
       const [a, b, c] = combination;
 
       if (board[a] === board[b] && board[b] === board[c] && board[c] !== "") {
-        console.log(`${board[c]} wins`);
-        return;
+        return board[c];
       }
     }
-    
-    if (!board.includes("")) {
-      console.log("Draw");
+
+    return false;
+  }
+
+  function checkForDraw() {
+    return !board.includes("");
+  }
+
+  function resetBoard() {
+    for (let i = 0; i <= board.length - 1; i++) {
+      board[i] = "";
     }
   }
 
-  function displayBoard() {
-    console.log(board);
-  }
-  
-  return { playSquare, displayBoard };
+  return {
+    fillSquare,
+    logBoard,
+    isMoveValid,
+    checkForDraw,
+    checkForWinner,
+    resetBoard,
+  };
 }
 
-let game = gameBoard();
+function gameController() {
+  let board = gameBoard();
+  let turnCount = 0;
+  let gameOver = false;
+  let winner = false;
+
+  function newGame() {
+    board.resetBoard();
+    turnCount = 0;
+    gameOver = false;
+    winner = false;
+  }
+
+  function play(square) {
+    //input validation
+    if (!board.isMoveValid(square)) {
+      console.log("Invalid move");
+      return;
+    } 
+    
+    if (gameOver) {
+      console.log(winner ? "Winner found" : "Draw");
+      return;
+    }
+
+    // add appropriate turn-based input
+    if (turnCount % 2 !== 0) {
+      board.fillSquare(square, "O");
+    } else if (turnCount % 2 === 0) {
+      board.fillSquare(square, "X");
+    }
+
+    turnCount++;
+
+    //win or draw check
+    winner = board.checkForWinner();
+    if (winner) {
+      console.log(`${winner} wins`);
+      gameOver = true;
+    } else if (board.checkForDraw()) {
+      console.log(`Draw`);
+      gameOver = true;
+    }
+  }
+
+  function printBoard() {
+    board.logBoard();
+  }
+
+  return { play, newGame, printBoard };
+}
+
+const game = gameController();
