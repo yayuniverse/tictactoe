@@ -67,11 +67,23 @@ function gameController() {
   let gameOver = false;
   let winner = false;
 
+  let player1 = {
+    name: "",
+    token: "X",
+  };
+
+  let player2 = {
+    name: "",
+    token: "O",
+  };
+
   function newGame() {
     board.resetBoard();
     turnCount = 0;
     gameOver = false;
     winner = false;
+    player1.name = ""
+    player2.name = ""
   }
 
   function play(square) {
@@ -79,8 +91,8 @@ function gameController() {
     if (!board.isMoveValid(square)) {
       console.log("Invalid move");
       return;
-    } 
-    
+    }
+
     if (gameOver) {
       console.log(winner ? "Winner found" : "Draw");
       return;
@@ -88,9 +100,9 @@ function gameController() {
 
     // add appropriate turn-based input
     if (turnCount % 2 === 0) {
-      board.fillSquare(square, "O");
+      board.fillSquare(square, player1.token);
     } else {
-      board.fillSquare(square, "X");
+      board.fillSquare(square, player2.token);
     }
 
     turnCount++;
