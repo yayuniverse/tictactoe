@@ -68,22 +68,27 @@ function gameController() {
   let winner = false;
 
   let player1 = {
-    name: "",
+    name: "X",
     token: "X",
   };
 
   let player2 = {
-    name: "",
+    name: "O",
     token: "O",
   };
+
+  function supplyPlayerName(playerOneName, playerTwoName) {
+    player1.name = playerOneName;
+    player2.name = playerTwoName;
+  }
 
   function newGame() {
     board.resetBoard();
     turnCount = 0;
     gameOver = false;
     winner = false;
-    player1.name = ""
-    player2.name = ""
+    player1.name = "X";
+    player2.name = "O";
   }
 
   function play(square) {
@@ -110,7 +115,11 @@ function gameController() {
     //win or draw check
     winner = board.checkForWinner();
     if (winner) {
-      console.log(`${winner} wins`);
+      console.log(
+        winner === player1.token
+          ? `${player1.name} wins`
+          : `${player2.name} wins`
+      );
       gameOver = true;
     } else if (board.checkForDraw()) {
       console.log(`Draw`);
@@ -122,7 +131,7 @@ function gameController() {
     board.logBoard();
   }
 
-  return { play, newGame, printBoard };
+  return { play, newGame, printBoard, supplyPlayerName };
 }
 
 const game = gameController();
