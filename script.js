@@ -135,7 +135,3 @@ function gameController() {
 }
 
 const game = gameController();
-
-function displayController() {
-
-}
