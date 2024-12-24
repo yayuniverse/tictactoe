@@ -139,9 +139,9 @@ function displayController() {
   const squares = document.querySelectorAll(".square");
 
   function updateDisplay() {
-    //TODO refactor loop so it's more performant
-    for (let i = 0; i < game.printBoard().length; i++) {
-      squares[i].textContent = game.printBoard()[i];
+    const boardState = game.printBoard()
+    for (let i = 0; i < boardState.length; i++) {
+      squares[i].textContent = boardState[i];
     }
   }
 
