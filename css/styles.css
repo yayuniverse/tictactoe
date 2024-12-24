@@ -1,0 +1,30 @@
+body {
+  background-color: #111;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.board,
+.square {
+  border: .5px solid #222;
+}
+
+.board {
+    display: flex;
+    width: 600px;
+    height: 600px;
+    flex-wrap: wrap;
+    box-sizing: content-box;
+}
+
+.square {
+    width: 200px;
+    height: 200px;
+    color: #aaa;
+    font-size: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
