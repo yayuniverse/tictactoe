@@ -68,13 +68,13 @@ function gameController() {
   let winner = false;
 
   let player1 = {
-    name: "X",
-    token: "X",
+    name: "×",
+    token: "×",
   };
 
   let player2 = {
-    name: "O",
-    token: "O",
+    name: "○",
+    token: "○",
   };
 
   function supplyPlayerName(playerOneName, playerTwoName) {
@@ -87,8 +87,8 @@ function gameController() {
     turnCount = 0;
     gameOver = false;
     winner = false;
-    player1.name = "X";
-    player2.name = "O";
+    player1.name = "×";
+    player2.name = "○";
   }
 
   function play(square) {
