@@ -10,7 +10,7 @@ function gameBoard() {
   }
 
   function logBoard() {
-    return [...board]
+    return [...board];
   }
 
   function isMoveValid(square) {
@@ -134,4 +134,8 @@ function gameController() {
   return { play, newGame, printBoard, supplyPlayerName };
 }
 
-const game = gameController();
+function displayController() {
+  const game = gameController();
+
+  
+}
