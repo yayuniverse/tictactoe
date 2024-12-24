@@ -139,13 +139,20 @@ function displayController() {
   const squares = document.querySelectorAll(".square");
 
   function updateDisplay() {
-    // refactor loop so it's more performant
+    //TODO refactor loop so it's more performant
     for (let i = 0; i < game.printBoard().length; i++) {
       squares[i].textContent = game.printBoard()[i];
     }
   }
 
+  squares.forEach((square, index) => {
+    square.addEventListener("click", () => {
+      game.play(index);
+      updateDisplay();
+    });
+  });
+
   return { game, updateDisplay };
 }
 
-const test = displayController()
+const test = displayController();
