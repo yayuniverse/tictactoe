@@ -128,7 +128,7 @@ function gameController() {
   }
 
   function printBoard() {
-    console.log(board.logBoard());
+    return board.logBoard();
   }
 
   return { play, newGame, printBoard, supplyPlayerName };
@@ -136,6 +136,16 @@ function gameController() {
 
 function displayController() {
   const game = gameController();
+  const squares = document.querySelectorAll(".square");
 
-  
+  function updateDisplay() {
+    // refactor loop so it's more performant
+    for (let i = 0; i < game.printBoard().length; i++) {
+      squares[i].textContent = game.printBoard()[i];
+    }
+  }
+
+  return { game, updateDisplay };
 }
+
+const test = displayController()
