@@ -1,26 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link rel="stylesheet" href="/css/reset.css">
-    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/reset.css" />
+    <link rel="stylesheet" href="/css/styles.css" />
     <script src="script.js" defer></script>
-</head>
-<body>
+  </head>
+  <body>
+    <form>
+      <span>
+        <label for="player-one">Player One Name</label>
+        <input type="text" name="player-one" id="player-one" />
+      </span>
+
+      <span>
+        <label for="player-two">Player Two Name</label>
+        <input type="text" name="player-two" id="player-two" />
+      </span>
+
+      <button type="button">Start Game</button>
+    </form>
+
     <div class="board">
-        <button class="square"></button>
-        <button class="square"></button>
-        <button class="square"></button>
-        <button class="square"></button>
-        <button class="square"></button>
-        <button class="square"></button>
-        <button class="square"></button>
-        <button class="square"></button>
-        <button class="square"></button>
+      <button class="square"></button>
+      <button class="square"></button>
+      <button class="square"></button>
+      <button class="square"></button>
+      <button class="square"></button>
+      <button class="square"></button>
+      <button class="square"></button>
+      <button class="square"></button>
+      <button class="square"></button>
     </div>
 
     <p class="info-card"></p>
-</body>
+  </body>
 </html>
