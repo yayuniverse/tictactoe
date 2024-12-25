@@ -137,13 +137,28 @@ function gameController() {
     }
   }
 
-  return { play, newGame, printBoard, supplyPlayerName, isGameOver };
+  function havePlayerNamesBeenSupplied() {
+    return player1.name !== "×" && player2.name !== "○";
+  }
+
+  return {
+    play,
+    newGame,
+    printBoard,
+    supplyPlayerName,
+    isGameOver,
+    havePlayerNamesBeenSupplied,
+  };
 }
 
 function displayController() {
   const game = gameController();
   const squares = document.querySelectorAll(".square");
   const infoCard = document.querySelector(".info-card");
+  const bothPlayerFields = document.querySelectorAll("span");
+  const playerOneField = document.querySelector("#player-one");
+  const playerTwoField = document.querySelector("#player-two");
+  const startResetBtn = document.querySelector("#startBtn");
 
   function updateUIBoard() {
     const boardState = game.printBoard();
@@ -152,13 +167,60 @@ function displayController() {
     }
   }
 
+  function updateInfoCard(message) {
+    infoCard.textContent = message;
+  }
+
   function displayGameResult() {
     const gameResult = game.isGameOver();
 
     if (gameResult) {
-      infoCard.textContent = gameResult;
+      updateInfoCard(gameResult);
     }
   }
+
+  function disablePlayerFields() {
+    bothPlayerFields.forEach((field) => {
+      field.style.opacity = "0";
+    });
+    playerOneField.disabled = true;
+    playerTwoField.disabled = true;
+    playerOneField.value = "";
+    playerTwoField.value = "";
+  }
+
+  function enablePlayerFields() {
+    bothPlayerFields.forEach((field) => {
+      field.style.opacity = "1";
+    });
+    playerOneField.disabled = false;
+    playerTwoField.disabled = false;
+  }
+
+  function collectPlayerNames() {
+    if (playerOneField.value !== "" && playerTwoField.value !== "") {
+      game.supplyPlayerName(playerOneField.value, playerTwoField.value);
+      disablePlayerFields();
+      startResetBtn.textContent = "Reset Game";
+    }
+  }
+
+  function resetGame() {
+    game.newGame();
+    updateUIBoard();
+    enablePlayerFields();
+    startResetBtn.textContent = "Start Game";
+    updateInfoCard("");
+  }
+
+  // Toggles between collecting player names and starting a new game based on the current state.
+  startResetBtn.addEventListener("click", () => {
+    if (game.havePlayerNamesBeenSupplied() === false) {
+      collectPlayerNames();
+    } else {
+      resetGame();
+    }
+  });
 
   squares.forEach((square, index) => {
     square.addEventListener("click", () => {
