@@ -35,4 +35,5 @@ body {
 .info-card {
     font-size: 40px;
     color: #aaa;
+    height: 60px;
 }
