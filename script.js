@@ -29,7 +29,7 @@ function gameBoard() {
       [2, 4, 6], // diagonal top-right to bottom-left
     ];
 
-    //check for winner
+    //check for winner and return the winning symbol
     for (const combination of winningCombinations) {
       const [a, b, c] = combination;
 
@@ -99,7 +99,7 @@ function gameController() {
     }
 
     if (gameOver) {
-      console.log(winner ? "Winner found" : "Draw");
+      console.log(winner ? `${winner} wins` : "Draw");
       return;
     }
 
@@ -115,14 +115,8 @@ function gameController() {
     //win or draw check
     winner = board.checkForWinner();
     if (winner) {
-      console.log(
-        winner === player1.token
-          ? `${player1.name} wins`
-          : `${player2.name} wins`
-      );
       gameOver = true;
     } else if (board.checkForDraw()) {
-      console.log(`Draw`);
       gameOver = true;
     }
   }
@@ -131,28 +125,50 @@ function gameController() {
     return board.logBoard();
   }
 
-  return { play, newGame, printBoard, supplyPlayerName };
+  function isGameOver() {
+    if (gameOver) {
+      if (winner) {
+        return winner === player1.token
+          ? `${player1.name} wins`
+          : `${player2.name} wins`;
+      } else if (board.checkForDraw()) {
+        return "Draw";
+      }
+    }
+  }
+
+  return { play, newGame, printBoard, supplyPlayerName, isGameOver };
 }
 
 function displayController() {
   const game = gameController();
   const squares = document.querySelectorAll(".square");
+  const infoCard = document.querySelector(".info-card");
 
-  function updateDisplay() {
-    const boardState = game.printBoard()
+  function updateUIBoard() {
+    const boardState = game.printBoard();
     for (let i = 0; i < boardState.length; i++) {
       squares[i].textContent = boardState[i];
+    }
+  }
+
+  function displayGameResult() {
+    const gameResult = game.isGameOver();
+
+    if (gameResult) {
+      infoCard.textContent = gameResult;
     }
   }
 
   squares.forEach((square, index) => {
     square.addEventListener("click", () => {
       game.play(index);
-      updateDisplay();
+      updateUIBoard();
+      displayGameResult();
     });
   });
 
-  return { game, updateDisplay };
+  return { game, updateUIBoard };
 }
 
 const test = displayController();
