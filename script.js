@@ -51,6 +51,10 @@ function gameBoard() {
     }
   }
 
+  function isBoardEmpty() {
+    return board.every((square) => square === "");
+  }
+
   return {
     fillSquare,
     logBoard,
@@ -58,6 +62,7 @@ function gameBoard() {
     checkForDraw,
     checkForWinner,
     resetBoard,
+    isBoardEmpty,
   };
 }
 
@@ -148,6 +153,7 @@ function gameController() {
     supplyPlayerName,
     isGameOver,
     havePlayerNamesBeenSupplied,
+    isBoardEmpty: board.isBoardEmpty,
   };
 }
 
@@ -197,11 +203,13 @@ function displayController() {
     playerTwoField.disabled = false;
   }
 
+  function arePlayerFieldsFilled() {
+    return playerOneField.value && playerTwoField.value;
+  }
+
   function collectPlayerNames() {
     if (playerOneField.value !== "" && playerTwoField.value !== "") {
       game.supplyPlayerName(playerOneField.value, playerTwoField.value);
-      disablePlayerFields();
-      startResetBtn.textContent = "Reset Game";
     }
   }
 
@@ -215,8 +223,14 @@ function displayController() {
 
   // Toggles between collecting player names and starting a new game based on the current state.
   startResetBtn.addEventListener("click", () => {
-    if (game.havePlayerNamesBeenSupplied() === false) {
+    if (
+      game.havePlayerNamesBeenSupplied() === false &&
+      game.isBoardEmpty() &&
+      arePlayerFieldsFilled()
+    ) {
       collectPlayerNames();
+      disablePlayerFields();
+      startResetBtn.textContent = "Reset Game";
     } else {
       resetGame();
     }
@@ -224,6 +238,10 @@ function displayController() {
 
   squares.forEach((square, index) => {
     square.addEventListener("click", () => {
+      if (game.havePlayerNamesBeenSupplied() === false) {
+        disablePlayerFields();
+        startResetBtn.textContent = "Reset Game";
+      }
       game.play(index);
       updateUIBoard();
       displayGameResult();
