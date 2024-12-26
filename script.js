@@ -223,11 +223,12 @@ function displayController() {
 
   // Toggles between collecting player names and starting a new game based on the current state.
   startResetBtn.addEventListener("click", () => {
-    if (
+    const canStartNewGameWithPlayerNames =
       game.havePlayerNamesBeenSupplied() === false &&
       game.isBoardEmpty() &&
-      arePlayerFieldsFilled()
-    ) {
+      arePlayerFieldsFilled();
+
+    if (canStartNewGameWithPlayerNames) {
       collectPlayerNames();
       disablePlayerFields();
       startResetBtn.textContent = "Reset Game";
