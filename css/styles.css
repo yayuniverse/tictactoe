@@ -73,6 +73,10 @@ form button:hover {
   background-color: transparent;
 }
 
+.winning-square {
+  color: #6CB654;
+}
+
 .info-card {
   font-size: 40px;
   color: #aaa;

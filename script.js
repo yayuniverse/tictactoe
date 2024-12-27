@@ -34,7 +34,7 @@ function gameBoard() {
       const [a, b, c] = combination;
 
       if (board[a] === board[b] && board[b] === board[c] && board[c] !== "") {
-        return board[c];
+        return { winningCombo: [a, b, c], winningSymbol: board[a] };
       }
     }
 
@@ -118,7 +118,7 @@ function gameController() {
     turnCount++;
 
     //win or draw check
-    winner = board.checkForWinner();
+    winner = board.checkForWinner().winningSymbol;
     if (winner) {
       gameOver = true;
     } else if (board.checkForDraw()) {
@@ -154,6 +154,7 @@ function gameController() {
     isGameOver,
     havePlayerNamesBeenSupplied,
     isBoardEmpty: board.isBoardEmpty,
+    checkForWinner: board.checkForWinner,
   };
 }
 
@@ -177,11 +178,27 @@ function displayController() {
     infoCard.textContent = message;
   }
 
+  function highlightWinningSquares() {
+    const winningIndices = game.checkForWinner().winningCombo;
+
+    winningIndices.forEach((winningIndex) => {
+      squares[winningIndex].classList.add("winning-square");
+    });
+  }
+
+  function resetHighlightedSquares() {
+    const boardState = game.printBoard();
+    for (let i = 0; i < boardState.length; i++) {
+      squares[i].classList.remove("winning-square");
+    }
+  }
+
   function displayGameResult() {
     const gameResult = game.isGameOver();
 
     if (gameResult) {
       updateInfoCard(gameResult);
+      highlightWinningSquares();
     }
   }
 
@@ -219,6 +236,7 @@ function displayController() {
     enablePlayerFields();
     startResetBtn.textContent = "Start Game";
     updateInfoCard("");
+    resetHighlightedSquares();
   }
 
   // Toggles between collecting player names and starting a new game based on the current state.
