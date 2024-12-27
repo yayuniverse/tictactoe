@@ -166,12 +166,22 @@ function displayController() {
   const playerOneField = document.querySelector("#player-one");
   const playerTwoField = document.querySelector("#player-two");
   const startResetBtn = document.querySelector("#startBtn");
+  const startInstructionText = document.querySelector(".game-instructions");
 
   function updateUIBoard() {
     const boardState = game.printBoard();
     for (let i = 0; i < boardState.length; i++) {
       squares[i].textContent = boardState[i];
     }
+  }
+
+  function removeInstructionText() {
+    startInstructionText.textContent = "";
+  }
+
+  function addInstructionText() {
+    startInstructionText.textContent =
+      "or, click any square in the board to begin without player names";
   }
 
   function updateInfoCard(message) {
@@ -234,6 +244,7 @@ function displayController() {
     game.newGame();
     updateUIBoard();
     enablePlayerFields();
+    addInstructionText();
     startResetBtn.textContent = "Start Game";
     updateInfoCard("");
     resetHighlightedSquares();
@@ -249,6 +260,7 @@ function displayController() {
     if (canStartNewGameWithPlayerNames) {
       collectPlayerNames();
       disablePlayerFields();
+      removeInstructionText();
       startResetBtn.textContent = "Reset Game";
     } else {
       resetGame();
@@ -259,6 +271,7 @@ function displayController() {
     square.addEventListener("click", () => {
       if (game.havePlayerNamesBeenSupplied() === false) {
         disablePlayerFields();
+        removeInstructionText();
         startResetBtn.textContent = "Reset Game";
       }
       game.play(index);
