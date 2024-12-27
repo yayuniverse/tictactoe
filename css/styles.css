@@ -2,10 +2,10 @@ body {
   background-color: #111;
   height: 100vh;
   display: flex;
-  justify-content: center;
+  justify-content: start;
   align-items: center;
   flex-direction: column;
-  gap: 96px;
+  /* gap: 96px; */
 }
 
 form {
@@ -49,6 +49,16 @@ form button:hover {
   background-color: #333;
 }
 
+.game-instructions {
+  text-align: center;
+  /* width: 140px; */
+  color: #949494;
+  margin-top: 144px;
+  width: 600px;
+  line-height: 1.8;
+  font-size: 14px;
+}
+
 .board,
 .square {
   border: 0.5px solid #222;
@@ -60,6 +70,7 @@ form button:hover {
   height: 600px;
   flex-wrap: wrap;
   box-sizing: content-box;
+  margin-top: 24px;
 }
 
 .square {
@@ -74,11 +85,12 @@ form button:hover {
 }
 
 .winning-square {
-  color: #6CB654;
+  color: #6cb654;
 }
 
 .info-card {
   font-size: 40px;
   color: #aaa;
   height: 60px;
+  margin-top: 48px;
 }
