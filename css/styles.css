@@ -62,7 +62,7 @@ form button:hover {
 
 .board,
 .square {
-  border: 0.5px solid #222;
+  border: 1px solid #222;
 }
 
 .board {
@@ -82,7 +82,7 @@ form button:hover {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: transparent;
+  background-color: #131313;
 }
 
 .winning-square {
