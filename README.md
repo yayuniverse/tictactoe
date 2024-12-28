@@ -1,2 +1,2 @@
 # tictactoe
-simple tictactoe game to practice factory functions and the module pattern as part of my learning
+simple tictactoe game to practice writing modular code and oop principles as part of my learning
