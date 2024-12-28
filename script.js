@@ -104,7 +104,6 @@ function gameController() {
     }
 
     if (gameOver) {
-      console.log(winner ? `${winner} wins` : "Draw");
       return;
     }
 
@@ -158,7 +157,7 @@ function gameController() {
   };
 }
 
-function displayController() {
+(function displayController() {
   const game = gameController();
   const squares = document.querySelectorAll(".square");
   const infoCard = document.querySelector(".info-card");
@@ -250,7 +249,6 @@ function displayController() {
     resetHighlightedSquares();
   }
 
-  // Toggles between collecting player names and starting a new game based on the current state.
   startResetBtn.addEventListener("click", () => {
     const canStartNewGameWithPlayerNames =
       game.havePlayerNamesBeenSupplied() === false &&
@@ -281,6 +279,4 @@ function displayController() {
   });
 
   return { game, updateUIBoard };
-}
-
-const test = displayController();
+})();
