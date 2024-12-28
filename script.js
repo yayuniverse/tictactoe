@@ -104,6 +104,7 @@ function gameController() {
     }
 
     if (gameOver) {
+      console.log(winner ? `${winner} wins` : "Draw");
       return;
     }
 
@@ -278,5 +279,4 @@ function gameController() {
     });
   });
 
-  return { game, updateUIBoard };
 })();
